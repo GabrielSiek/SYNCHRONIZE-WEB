@@ -1,0 +1,22 @@
+//cores
+$azul: #3E91F3;
+$branco: #F5F5F5;
+$branco-bg: #ebebee;
+$cinza: #DBD8D8;
+$cinza-escuro: #A3A3A3;
+$preto: #111111;
+$vermelho: #FB4848;
+
+//cores-hover
+$azul-hover: #3a85db;
+
+body {
+    background-color: $branco-bg;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
