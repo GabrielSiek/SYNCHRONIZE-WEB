@@ -1,6 +1,6 @@
 import './Dashboard.scss'
-
-function Dashboard () {
+    
+const Dashboard = () => {
 
     return (
         <section className='dashboard'>

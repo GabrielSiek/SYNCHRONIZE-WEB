@@ -1,5 +1,34 @@
 @import '../../global.scss';
 
+.button-default {
+    background-color: $azul;
+    color: $branco;
+    border: none;
+    height: 40px;
+    width: fit-content;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition: all 0.2s;
+    &:hover {
+        transform: translateY(-2px);
+        background-color: $azul-hover;
+    }
+}
+
+.redondo {
+    padding: 0;
+    width: 40px;
+    border-radius: 50%;
+}
+
+
 .sidebar-bt {
     display: flex;
     align-items: center;

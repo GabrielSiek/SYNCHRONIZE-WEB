@@ -3,7 +3,7 @@ import Header from '../../Widgets/Header/Header'
 import SideBar from '../../Widgets/SideBar/SideBar'
 import { Outlet } from 'react-router-dom'
 
-function PaginaPadrao() {
+const PaginaPadrao = () => {
     
     return (
         <main className='mainpage'>

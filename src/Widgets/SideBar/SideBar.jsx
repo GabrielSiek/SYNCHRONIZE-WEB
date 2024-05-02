@@ -4,11 +4,10 @@ import { FaHome, FaTools, FaRegCalendarAlt, FaAngleRight, FaBell, FaUser } from 
 import { LuConstruction } from "react-icons/lu";
 import { FaHelmetSafety } from "react-icons/fa6";
 import { useRef, useState } from 'react';
-import ButtonSideBar from '../ButtonSideBar/ButtonSideBar.jsx'
+import { ButtonSideBar } from '../Buttons/Buttons.jsx'
 import { useLocation } from 'react-router-dom';
 
-
-function SideBar () {
+const SideBar = () => {
 
     const [isActive, setIsActive] = useState(false);
     const lineButtonSelected = document.getElementById('sidebar-selected-button-line')

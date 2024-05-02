@@ -6,7 +6,7 @@ import SideBar from '../Widgets/SideBar/SideBar'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-function ContentSection () {
+ const ContentSection = () => {
     
     return (
         <section className='content-section'>

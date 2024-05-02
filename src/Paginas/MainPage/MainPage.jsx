@@ -5,7 +5,7 @@ import Obras from '../../Paginas/Obras/Obras'
 import PaginaPadrao from '../../Paginas/PaginaPadrao/PaginaPadrao'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-function MainPage () {
+const MainPage = () => {
     
     return (
         <div className='mainpage'>

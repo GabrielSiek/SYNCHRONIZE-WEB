@@ -1,6 +1,6 @@
 import './Itens.scss'
 
-function Itens () {
+const Itens =  () => {
 
     return (
         <section className='itens'>

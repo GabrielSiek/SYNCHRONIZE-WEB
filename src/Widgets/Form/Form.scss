@@ -1,0 +1,40 @@
+@import '../../global.scss';
+
+.form {
+    background-color: $branco;
+    width: 420px;
+    padding: 32px;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.form-titulo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.form-input-area {
+    margin: 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+}
+
+input[type=text ] {
+    border-color: transparent;
+    background-color: #ffffff;
+    border-radius: 20px;
+    font-size: 16px;
+    width: 100%;
+    color: $preto;
+    cursor:text;
+    outline: transparent;
+    margin-bottom: 16px;
+}
+
+input[type=file ] {
+}

@@ -1,8 +1,9 @@
 import './Header.scss'
 import { FaSearch, FaPlus, FaUser } from "react-icons/fa";
 import { MdNotificationsNone } from "react-icons/md";
+import { ButtonDefault } from '../Buttons/Buttons.jsx';
 
-function Header () {
+const Header = () => {
 
     return (
         <header className='header'>
@@ -13,7 +14,7 @@ function Header () {
             </div>
 
             <div className='header-right-buttons'>
-                <button className='header-bt-add'><FaPlus /> Adicionar</button>
+                <ButtonDefault><FaPlus/>Adicionar</ButtonDefault>
 
                 <div className='header-container-notification'>
                     <MdNotificationsNone/>

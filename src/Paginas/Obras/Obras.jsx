@@ -2,9 +2,13 @@ import './Obras.scss'
 import { useState } from 'react';
 import * as XLSX from 'xlsx';
 import axios from "axios";
+import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx'
+import { FaPlus } from "react-icons/fa";
+import Form from "../../Widgets/Form/Form.jsx"
 
-function Obras() {
+const Obras = () => {
 
+    const [nomeObra, setNomeObra] = useState("");
     const [items, setItems] = useState([]);
 
     const handleFileUpload = (e) => {
@@ -42,15 +46,18 @@ function Obras() {
                     protecao_valor_etapa: row[16]
                 };
                 items.push(item);
+
+
             }
     
+            const obra = {nome: "teste", encarregado_id: "123", items}
             // Enviar o array items como POST para o backend
             const handleSubmit = (e) => {
     
                 fetch('URL_DO_BACKEND', {
                     method: 'POST',
                     headers: { "Content-Type": "application/json"},
-                    body: JSON.stringify(items)
+                    body: JSON.stringify(obra)
                 }).then(response => {
                     if (response.ok) {
                         console.log('Itens adicionados com sucesso!');
@@ -65,24 +72,46 @@ function Obras() {
             // Chamar a função handleSubmit para enviar os dados ao backend
             handleSubmit();
             
-            console.log(items)
+            console.log(obra)
         };
     };
     
+    function showForm() {
 
-    
+    }
 
     return (
         <section className='obras'>
             obras
 
-            <input
-                type='file'
-                accept='.xlsx, xls'
-                onChange={handleFileUpload}
-            />
+            <ButtonDefault onClick={() => {console.log('teste')}} modo={"redondo"}><FaPlus/></ButtonDefault>
 
-            <div className='container-table'>
+            <Form onSubmit={() => console.log('obra adicionada')}>
+                <label className='form-titulo'>Registrar nova obra</label>
+
+                <div className='form-input-area'>
+                    <label className=''>Nome da obra</label>
+                    <input type='text' placeholder='Digite o nome da obra' onChange={(e) => setNomeObra(e.target.value)}></input>
+
+                    <label className=''>Importe o arquivo da obra</label>
+                    <input 
+                        type='file'
+                        accept='.xlsx, xls'
+                        onChange={handleFileUpload}
+                    />
+                </div>
+
+                <ButtonDefault type='submit'>Adicionar obra</ButtonDefault>
+
+            </Form>
+
+     </section>
+    )
+}
+
+export default Obras;
+
+{/* <div className='container-table'>
                 {items.length > 0 && (
                     <table className="table">
                         <tbody>
@@ -96,9 +125,4 @@ function Obras() {
                         </tbody>
                     </table>
                 )}
-            </div>
-        </section>
-    )
-}
-
-export default Obras;
+            </div> */}
