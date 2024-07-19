@@ -3,7 +3,6 @@ import React, { useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 const ButtonDefault = ({children, modo, onClick, type})  => {
-
     return (
         <button onClick={onClick} className={`button-default ${modo}`} type={type}>
             {children}
@@ -11,6 +10,13 @@ const ButtonDefault = ({children, modo, onClick, type})  => {
     )
 }
 
+const ButtonForm = ({children, modo, onClick, type})  => {
+    return (
+        <button onClick={onClick} className={`button-form ${modo}`} type={type}>
+            {children}
+        </button>
+    )
+}
 
 function ButtonSideBar({ icone, texto, link }) {
     const location = useLocation();
@@ -27,4 +33,4 @@ function ButtonSideBar({ icone, texto, link }) {
     );
 }
 
-export {ButtonDefault, ButtonSideBar};
+export {ButtonDefault, ButtonForm, ButtonSideBar};

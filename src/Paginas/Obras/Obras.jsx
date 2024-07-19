@@ -4,27 +4,61 @@ import * as XLSX from 'xlsx';
 import axios from "axios";
 import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx'
 import { FaPlus } from "react-icons/fa";
-import Form from "../../Widgets/Form/Form.jsx"
+import {FormTitulo, FormInputText, FormInputFile} from "../../Widgets/Form/Form.jsx"
 
 const Obras = () => {
 
     const [nomeObra, setNomeObra] = useState("");
+    const [encarregado, setEncarregado] = useState("");
+
+    const [nomeArquivo, setNomeArquivo] = useState("Selecionar arquivo de obra");
+    const [obras, setObras] = useState([]);
     const [items, setItems] = useState([]);
+
+    const handleSubmit = () => {
+        const obra = { nome: nomeObra, encarregado_id: encarregado, items }
+
+        //fetch('URL_DO_BACKEND', {
+        //    method: 'POST',
+        //    headers: { "Content-Type": "application/json" },
+        //    body: JSON.stringify(obra)
+        //}).then(response => {
+        //    if (response.ok) {
+        //        console.log('Itens adicionados com sucesso!');
+        //    } else {
+        //        console.error('Erro ao adicionar itens:', response.statusText);
+        //    }
+        //}).catch(error => {
+        //    console.error('Erro ao enviar requisição POST:', error);
+        //});
+
+        setNomeObra("")
+        setEncarregado("")
+        setNomeArquivo("")
+        setItems([])
+
+        console.log("obra adicionada")
+        console.log(obra)
+
+    }
 
     const handleFileUpload = (e) => {
         e.preventDefault();
 
+        const file = e.target.files[0];
         const reader = new FileReader();
-        reader.readAsBinaryString(e.target.files[0]);
+        reader.readAsBinaryString(file);
         reader.onload = (e) => {
             const data = e.target.result;
             const workbook = XLSX.read(data, { type: "binary" });
             const sheetName = workbook.SheetNames[0];
             const sheet = workbook.Sheets[sheetName];
             const parsedData = XLSX.utils.sheet_to_json(sheet, { header: 1, blankrows: false });
-    
-            // Criar array de items a partir dos dados parseados
-            for (let i = 2; i < parsedData.length; i++) {
+
+            setNomeArquivo(file.name);
+
+            //array de items a partir dos dados parseados
+            for (let i = 0; i < parsedData.length; i++) {
                 const row = parsedData[i];
                 const item = {
                     numero: row[0],
@@ -46,72 +80,66 @@ const Obras = () => {
                     protecao_valor_etapa: row[16]
                 };
                 items.push(item);
-
-
-            }
-    
-            const obra = {nome: "teste", encarregado_id: "123", items}
-            // Enviar o array items como POST para o backend
-            const handleSubmit = (e) => {
-    
-                fetch('URL_DO_BACKEND', {
-                    method: 'POST',
-                    headers: { "Content-Type": "application/json"},
-                    body: JSON.stringify(obra)
-                }).then(response => {
-                    if (response.ok) {
-                        console.log('Itens adicionados com sucesso!');
-                    } else {
-                        console.error('Erro ao adicionar itens:', response.statusText);
-                    }
-                }).catch(error => {
-                    console.error('Erro ao enviar requisição POST:', error);
-                });
-            }
-    
-            // Chamar a função handleSubmit para enviar os dados ao backend
-            handleSubmit();
-            
-            console.log(obra)
+            }        
         };
     };
-    
-    function showForm() {
 
+    function showFormRegisterObra () {
+        const form = document.getElementById('form-register-obra');
+        form.style.display = 'block'
     }
 
     return (
         <section className='obras'>
-            obras
+            <ButtonDefault onClick={() => showFormRegisterObra } modo={"redondo"}><FaPlus /></ButtonDefault>
 
-            <ButtonDefault onClick={() => {console.log('teste')}} modo={"redondo"}><FaPlus/></ButtonDefault>
 
-            <Form onSubmit={() => console.log('obra adicionada')}>
-                <label className='form-titulo'>Registrar nova obra</label>
+            <form className='form-register-obra' onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit()}}>
+
+                <FormTitulo>Registrar nova obra</FormTitulo>
 
                 <div className='form-input-area'>
-                    <label className=''>Nome da obra</label>
-                    <input type='text' placeholder='Digite o nome da obra' onChange={(e) => setNomeObra(e.target.value)}></input>
 
-                    <label className=''>Importe o arquivo da obra</label>
-                    <input 
-                        type='file'
-                        accept='.xlsx, xls'
-                        onChange={handleFileUpload}
+                    <FormInputText
+                    labelText='Nome da obra'
+                    placeholder='Digite o nome da obra'
+                    value={nomeObra}
+                    onChange={(e) => setNomeObra(e.target.value)}
                     />
+
+                    <FormInputText
+                    labelText='Encarregado'
+                    placeholder='Digite o nome do encarregado'
+                    value={encarregado}
+                    onChange={(e) => setEncarregado(e.target.value)}
+                    />
+                    
+                    <FormInputFile
+                    labelText={'Arquivo da obra'}
+                        accept= '.xlsx, .xls'
+                        onChange={handleFileUpload}
+                        placeholder={nomeArquivo}
+                        textoBotao = 'Procurar'
+                    />
+                    
                 </div>
 
-                <ButtonDefault type='submit'>Adicionar obra</ButtonDefault>
+                <ButtonDefault>Registrar obra</ButtonDefault>
 
-            </Form>
+            </form>
 
-     </section>
+            
+
+        </section>
     )
 }
 
 export default Obras;
 
-{/* <div className='container-table'>
+{
+    /* <div className='container-table'>
                 {items.length > 0 && (
                     <table className="table">
                         <tbody>
@@ -125,4 +153,5 @@ export default Obras;
                         </tbody>
                     </table>
                 )}
-            </div> */}
+            </div> */
+}

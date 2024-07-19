@@ -1,40 +1,99 @@
 @import '../../global.scss';
 
-.form {
-    background-color: $branco;
-    width: 420px;
-    padding: 32px;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-}
 
 .form-titulo {
+    display: flex;
+    width: fit-content;
     font-size: 22px;
-    font-weight: bold;
+    font-weight: medium;
+    margin-bottom: 32px;
 }
 
-.form-input-area {
-    margin: 32px 0;
+.form-input-text {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    margin-bottom: 32px;
+    width: 370px;
+}
+
+.form-input-username {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
     width: 100%;
 }
 
-input[type=text ] {
+.form-input-password {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+    width: 100%;
+}
+
+.form-label {
+    display: flex;
+    margin-bottom: 4px;
+    margin-left: 8px;
+}
+
+input[type=text] {
     border-color: transparent;
     background-color: #ffffff;
     border-radius: 20px;
     font-size: 16px;
-    width: 100%;
-    color: $preto;
+    height: 30px;
     cursor:text;
     outline: transparent;
+    left: 0;
     margin-bottom: 16px;
 }
 
-input[type=file ] {
+input[type=password] {
+    border-color: transparent;
+    background-color: #ffffff;
+    border-radius: 20px;
+    font-size: 16px;
+    height: 30px;
+    cursor:text;
+    outline: transparent;
+    left: 0;
+    margin-bottom: 16px;
+}
+
+.form-input-file {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    height: 40px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+    width: 370px;
+}
+
+.form-input-file-text {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    right: 0;
+    margin: 0 8px;
+    color: $preto-desbotado;
+}
+
+.form-input-file-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: $azul;
+    right: 0;
+    margin: 0 8px;
+    height: 30px;
+    width: 120px;
+    color: $branco;
+    cursor: pointer;
+}
+
+input[type=file] {
+    display: none;
 }

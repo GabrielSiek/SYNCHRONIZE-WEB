@@ -31,7 +31,6 @@ const SideBar = () => {
             <div className='sidebar-linha'/>
 
             <ul className='sidebar-navlist'>
-            <div className='sidebar-selected-button-line'/>
                 <li className='sidebar-item'>
                     <ButtonSideBar className='/dashboard'
                         link="/dashboard"
