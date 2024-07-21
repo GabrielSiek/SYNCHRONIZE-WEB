@@ -4,8 +4,8 @@ import Itens from './Paginas/Itens/Itens'
 import Obras from './Paginas/Obras/Obras'
 import PaginaPadrao from './Paginas/PaginaPadrao/PaginaPadrao'
 import Login from './Paginas/Login/Login'
-import { Routes, Route } from 'react-router-dom'
-
+import { Routes , Route } from 'react-router-dom'
+import RequireAuth from './Authentication/RequireAuth'
 const App = () => {
 
   return (
@@ -16,10 +16,12 @@ const App = () => {
       <Route exact path="/sem-autorizacao" element={<div>Sem autorizacao</div>} />
 
       {/* protected */}
-      <Route path="/" element={<PaginaPadrao />}>
-        <Route path="/dashboard" element={<DashBoard />} />
-        <Route path="/itens" element={<Itens />} />
-        <Route path="/obras" element={<Obras />} />
+      <Route element={< RequireAuth />}>
+        <Route path="/" element={<PaginaPadrao />}>
+          <Route path="/dashboard" element={<DashBoard />} />
+          <Route path="/itens" element={<Itens />} />
+          <Route path="/obras" element={<Obras />} />
+        </Route>
       </Route>
 
       {/* error */}

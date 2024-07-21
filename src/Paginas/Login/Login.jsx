@@ -1,18 +1,19 @@
 import './Login.scss'
 
-import { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { FormTitulo, FormInputUsername, FormInputPassword } from "../../Widgets/Form/Form.jsx"
 import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx';
-import AuthContext from '../../context/AuthProvider.jsx';
-
+import useAuth from '../../hooks/useAuth.jsx';
 import axios from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
 const LOGIN_URL = '/auth/login'
 
 const Login = () => {
-    const { setAuth } = useContext(AuthContext)
+    const { setAuth } = useAuth()
     const userRef = useRef()
     const errRef = useRef()
-
+    const navigate = useNavigate()
+    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errMsg, setErrMsg] = useState('')
@@ -39,7 +40,12 @@ const Login = () => {
             )
 
             const accessToken = response?.data?.token
-            console.log(accessToken)
+            const empresa_id = response?.data?.empresa_id
+
+            localStorage.setItem('empresa_id', empresa_id)
+            localStorage.setItem('token', accessToken)
+            console.log(localStorage.getItem('token'))
+            console.log(localStorage.getItem('empresa_id'))
 
             setAuth({ email, password, accessToken })
 
@@ -64,8 +70,8 @@ const Login = () => {
     return (
         <>
             {success ? (
-                <h1>sucesso</h1>
-            ) : (
+                <div>sucesso</div>
+) : (
                 <div className='login'>
                     <form className='form-login' onSubmit={handleSubmit}>
                         <FormTitulo>Login</FormTitulo>

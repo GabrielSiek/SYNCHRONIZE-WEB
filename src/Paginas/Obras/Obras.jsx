@@ -1,10 +1,11 @@
 import './Obras.scss'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
-import axios from "axios";
+import api from "../../api/axios.jsx";
 import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx'
 import { FaPlus } from "react-icons/fa";
 import {FormTitulo, FormInputText, FormInputFile} from "../../Widgets/Form/Form.jsx"
+import { useNavigate } from "react-router-dom";
 
 const Obras = () => {
 
@@ -14,7 +15,28 @@ const Obras = () => {
     const [nomeArquivo, setNomeArquivo] = useState("Selecionar arquivo de obra");
     const [obras, setObras] = useState([]);
     const [items, setItems] = useState([]);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const fecthObras = async () => {
+            try {
+                const response = await api.get(`${localStorage.getItem('empresa_id')}/jobs-info`)
+                setObras(response.data);
+            } catch (e) {
+                if(e.response) {
+                        console.log(e.response.data)
+                        console.log(e.response.status)
+                        console.log(e.response.headers)
+                }
+            }
+        }
+
+        fecthObras();
+    }, [])
+    
+    useEffect(() => {
+
+    })
     const handleSubmit = () => {
         const obra = { nome: nomeObra, encarregado_id: encarregado, items }
 
@@ -56,7 +78,7 @@ const Obras = () => {
             const parsedData = XLSX.utils.sheet_to_json(sheet, { header: 1, blankrows: false });
 
             setNomeArquivo(file.name);
-
+ 
             //array de items a partir dos dados parseados
             for (let i = 0; i < parsedData.length; i++) {
                 const row = parsedData[i];
@@ -86,14 +108,52 @@ const Obras = () => {
 
     function showFormRegisterObra () {
         const form = document.getElementById('form-register-obra');
-        form.style.display = 'block'
+        form.style.display = 'flex'
     }
 
     return (
         <section className='obras'>
-            <ButtonDefault onClick={() => showFormRegisterObra } modo={"redondo"}><FaPlus /></ButtonDefault>
 
+            <h1 className='titulo-obras'>Obras</h1>
 
+            {obras.length === 0 ? (
+                <p>Nenhuma obra registrada</p>
+            ) : (
+                <div className='container-obras'>
+
+                    <div className='bg-coluna-numeros'/>
+                    <table className='tabela-obras'>
+                        <thead className='tabela-obras-head'>
+                            <tr>
+                                <th>N°</th>
+                                <th>Nome</th>
+                                <th>Valor</th>
+                                <th>Encarregado</th>
+                                <th>Itens</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {obras.map((obra, index) => (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{obra.nome}</td>
+                                    <td>{obra.valor}</td>
+                                    <td>{obra.encarregado.nome}</td>
+                                    <td>{obra.itens}</td>
+                                    <td>{obra.status}</td>
+                                    <td>deletar</td>
+                                    <td>editar</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table> 
+                </div>
+            )}
+
+            <div className='container-bt-add-obra'>
+                <ButtonDefault onClick={() => showFormRegisterObra } modo={"redondo"}><FaPlus /></ButtonDefault>
+            </div>
             <form className='form-register-obra' onSubmit={(e) => {
                 e.preventDefault();
                 handleSubmit()}}>
@@ -129,8 +189,6 @@ const Obras = () => {
                 <ButtonDefault>Registrar obra</ButtonDefault>
 
             </form>
-
-            
 
         </section>
     )

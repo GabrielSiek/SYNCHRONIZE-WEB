@@ -22,6 +22,11 @@ const SideBar = () => {
         setIsActive(!isActive);
     }
 
+    function logout() {
+        localStorage.setItem('token', '')
+        localStorage.setItem('empresa_id', '')
+    }
+
     return(
         <section className={`sidebar ${isActive ? 'active' : ''}`}>
             <div className='sidebar-top'>
@@ -82,6 +87,8 @@ const SideBar = () => {
                     />
                 </li>
             </ul>
+
+            <button onClick={logout}>Logout</button>
         </section>
     )
 }
