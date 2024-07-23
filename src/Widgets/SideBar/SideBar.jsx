@@ -5,12 +5,14 @@ import { LuConstruction } from "react-icons/lu";
 import { FaHelmetSafety } from "react-icons/fa6";
 import { useRef, useState } from 'react';
 import { ButtonSideBar } from '../Buttons/Buttons.jsx'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const SideBar = () => {
 
     const [isActive, setIsActive] = useState(false);
     const lineButtonSelected = document.getElementById('sidebar-selected-button-line')
+    const navigate = useNavigate()
 
     function changePosYLine() {
 
@@ -18,13 +20,13 @@ const SideBar = () => {
         //lineButtonSelected.style.top = buttonSelectedPosY;
     }
 
-    const changeIsActive = () => {
-        setIsActive(!isActive);
-    }
-
-    function logout() {
+    const logout = () => {
         localStorage.setItem('token', '')
         localStorage.setItem('empresa_id', '')
+        navigate('/login')
+    }    
+    const changeIsActive = () => {
+        setIsActive(!isActive);
     }
 
     return(

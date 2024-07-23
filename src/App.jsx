@@ -17,11 +17,12 @@ const App = () => {
 
       {/* protected */}
       <Route element={< RequireAuth />}>
-        <Route path="/" element={<PaginaPadrao />}>
+      </Route>
+
+      <Route path="/" element={<PaginaPadrao />}>
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/itens" element={<Itens />} />
           <Route path="/obras" element={<Obras />} />
-        </Route>
       </Route>
 
       {/* error */}

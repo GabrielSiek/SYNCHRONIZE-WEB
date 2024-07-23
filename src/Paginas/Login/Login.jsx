@@ -1,26 +1,29 @@
 import './Login.scss'
 
 import { useRef, useState, useEffect } from 'react';
-import { FormTitulo, FormInputUsername, FormInputPassword } from "../../Widgets/Form/Form.jsx"
+import { Link, useNavigate, useLocation} from 'react-router-dom';
+import { FormTitulo, FormInputUsername, FormInputPassword } from "../../Widgets/Form/Form.jsx";
 import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx';
 import useAuth from '../../hooks/useAuth.jsx';
 import axios from '../../api/axios';
-import { useNavigate } from 'react-router-dom';
 const LOGIN_URL = '/auth/login'
 
 const Login = () => {
     const { setAuth } = useAuth()
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
+
     const userRef = useRef()
     const errRef = useRef()
-    const navigate = useNavigate()
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [errMsg, setErrMsg] = useState('')
-    const [success, setSuccess] = useState(false)
 
     useEffect(() => {
-        //userRef.current.focus()
+        userRef.current.focus()
     }, [])
 
     useEffect(() => {
@@ -51,8 +54,7 @@ const Login = () => {
 
             setEmail('')
             setPassword('')
-            setSuccess(true)
-
+            navigate(from, { replace: true})
         } catch (err) {
             if (!err?.response)
                 setErrMsg("Sem resposta do servidor")
@@ -68,10 +70,6 @@ const Login = () => {
     }
 
     return (
-        <>
-            {success ? (
-                <div>sucesso</div>
-) : (
                 <div className='login'>
                     <form className='form-login' onSubmit={handleSubmit}>
                         <FormTitulo>Login</FormTitulo>
@@ -86,12 +84,7 @@ const Login = () => {
                             {errMsg}
                         </p>
                 </div>
-            )
-
-            }
-
-        </>
-
+            
     )
 }
 

@@ -17,6 +17,7 @@ const Obras = () => {
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
 
+   
     useEffect(() => {
         const fecthObras = async () => {
             try {
@@ -34,9 +35,6 @@ const Obras = () => {
         fecthObras();
     }, [])
     
-    useEffect(() => {
-
-    })
     const handleSubmit = () => {
         const obra = { nome: nomeObra, encarregado_id: encarregado, items }
 
