@@ -4,7 +4,7 @@ import * as XLSX from 'xlsx';
 import api from "../../api/axios.jsx";
 import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx'
 import { FaPlus } from "react-icons/fa";
-import {FormTitulo, FormInputText, FormInputFile} from "../../Widgets/Form/Form.jsx"
+import {FormTitulo, FormInputText, FormInputFile, FormCloseButton} from "../../Widgets/Form/Form.jsx"
 import { useNavigate } from "react-router-dom";
 
 const Obras = () => {
@@ -17,7 +17,7 @@ const Obras = () => {
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
 
-   
+   //get obras
     useEffect(() => {
         const fecthObras = async () => {
             try {
@@ -34,23 +34,14 @@ const Obras = () => {
 
         fecthObras();
     }, [])
+
+    //post obra
+    useEffect(() => {
+
+    }, [])
     
     const handleSubmit = () => {
         const obra = { nome: nomeObra, encarregado_id: encarregado, items }
-
-        //fetch('URL_DO_BACKEND', {
-        //    method: 'POST',
-        //    headers: { "Content-Type": "application/json" },
-        //    body: JSON.stringify(obra)
-        //}).then(response => {
-        //    if (response.ok) {
-        //        console.log('Itens adicionados com sucesso!');
-        //    } else {
-        //        console.error('Erro ao adicionar itens:', response.statusText);
-        //    }
-        //}).catch(error => {
-        //    console.error('Erro ao enviar requisição POST:', error);
-        //});
 
         setNomeObra("")
         setEncarregado("")
@@ -59,6 +50,7 @@ const Obras = () => {
 
         console.log("obra adicionada")
         console.log(obra)
+        closeFormRegisterObra()
 
     }
 
@@ -104,22 +96,28 @@ const Obras = () => {
         };
     };
 
-    function showFormRegisterObra () {
+    const showFormRegisterObra = () => {
         const form = document.getElementById('form-register-obra');
-        form.style.display = 'flex'
+        const conteudo_obras = document.getElementById('conteudo-obras')
+        form.style.display = 'block';
+        conteudo_obras.classList.add('blurred');
     }
 
+    const closeFormRegisterObra = () => {
+        const form = document.getElementById('form-register-obra');
+        const conteudo_obras = document.getElementById('conteudo-obras')
+        form.style.display = 'none';
+        conteudo_obras.classList.remove('blurred');
+    }
+    
     return (
-        <section className='obras'>
-
+    <section className='obras'>
+        <div className='conteudo-obras' id='conteudo-obras'>
             <h1 className='titulo-obras'>Obras</h1>
-
             {obras.length === 0 ? (
                 <p>Nenhuma obra registrada</p>
             ) : (
                 <div className='container-obras'>
-
-                    <div className='bg-coluna-numeros'/>
                     <table className='tabela-obras'>
                         <thead className='tabela-obras-head'>
                             <tr>
@@ -140,56 +138,58 @@ const Obras = () => {
                                     <td>{obra.encarregado.nome}</td>
                                     <td>{obra.itens}</td>
                                     <td>{obra.status}</td>
-                                    <td>deletar</td>
-                                    <td>editar</td>
+                                    <td>
+                                        <button>deletar</button>
+                                    </td>
+                                    <td>
+                                        <button>editar</button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
-                    </table> 
+                    </table>
                 </div>
             )}
 
             <div className='container-bt-add-obra'>
-                <ButtonDefault onClick={() => showFormRegisterObra } modo={"redondo"}><FaPlus /></ButtonDefault>
+                <ButtonDefault onClick={showFormRegisterObra} modo={"redondo"}>
+                    <FaPlus />
+                </ButtonDefault>
             </div>
-            <form className='form-register-obra' onSubmit={(e) => {
-                e.preventDefault();
-                handleSubmit()}}>
+        </div>
 
-                <FormTitulo>Registrar nova obra</FormTitulo>
-
-                <div className='form-input-area'>
-
-                    <FormInputText
+        <form className='form-register-obra' id='form-register-obra' onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+        }}>
+            <FormTitulo>Registrar nova obra</FormTitulo>
+            <FormCloseButton onClick={closeFormRegisterObra} />
+            <div className='form-input-area'>
+                <FormInputText
                     labelText='Nome da obra'
                     placeholder='Digite o nome da obra'
                     value={nomeObra}
                     onChange={(e) => setNomeObra(e.target.value)}
-                    />
-
-                    <FormInputText
+                />
+                <FormInputText
                     labelText='Encarregado'
                     placeholder='Digite o nome do encarregado'
                     value={encarregado}
                     onChange={(e) => setEncarregado(e.target.value)}
-                    />
-                    
-                    <FormInputFile
-                    labelText={'Arquivo da obra'}
-                        accept= '.xlsx, .xls'
-                        onChange={handleFileUpload}
-                        placeholder={nomeArquivo}
-                        textoBotao = 'Procurar'
-                    />
-                    
-                </div>
+                />
+                <FormInputFile
+                    labelText='Arquivo da obra'
+                    accept='.xlsx, .xls'
+                    onChange={handleFileUpload}
+                    placeholder={nomeArquivo}
+                    textoBotao='Procurar'
+                />
+            </div>
+            <ButtonDefault>Registrar obra</ButtonDefault>
+        </form>
+    </section>
+)
 
-                <ButtonDefault>Registrar obra</ButtonDefault>
-
-            </form>
-
-        </section>
-    )
 }
 
 export default Obras;

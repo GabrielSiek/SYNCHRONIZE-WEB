@@ -1,4 +1,5 @@
 import './Form.scss'
+import { IoClose } from "react-icons/io5";
 
 const FormTitulo = ({children}) => {
 
@@ -57,4 +58,11 @@ const FormInputPassword = ({placeholder, onChange, value}) => {
     )
 }
 
-export {FormTitulo, FormInputText, FormInputFile, FormInputUsername, FormInputPassword};
+const FormCloseButton = ({onClick}) => {
+
+    return(
+        <button className='form-close-button' onClick={onClick} type='button'><IoClose/></button>
+    )
+}
+
+export {FormTitulo, FormCloseButton, FormInputText, FormInputFile, FormInputUsername, FormInputPassword};

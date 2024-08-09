@@ -63,14 +63,14 @@ const SideBar = () => {
                 <li className='sidebar-item'>
                     <ButtonSideBar
                         link="/funcionarios"
-                        texto = "Funcionarios"
+                        texto = "Funcionários"
                         icone = {<FaHelmetSafety />}
                     />
                 </li>
                 <li className='sidebar-item'>
                     <ButtonSideBar
                         link="/calendario"
-                        texto = "Calendario"
+                        texto = "Calendário"
                         icone = {<FaRegCalendarAlt />}
                     />
                 </li>

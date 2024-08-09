@@ -4,6 +4,8 @@
 .form-titulo {
     display: flex;
     width: fit-content;
+    width: 100%;
+    justify-content: center;
     font-size: 22px;
     font-weight: medium;
     margin-bottom: 32px;
@@ -13,7 +15,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 32px;
-    width: 370px;
+    width: 360px;
 }
 
 .form-input-username {
@@ -68,7 +70,7 @@ input[type=password] {
     height: 40px;
     border-radius: 20px;
     margin-bottom: 32px;
-    width: 370px;
+    width: 360px;
 }
 
 .form-input-file-text {
@@ -78,6 +80,7 @@ input[type=password] {
     right: 0;
     margin: 0 8px;
     color: $preto-desbotado;
+    font-size: 14px;
 }
 
 .form-input-file-button {
@@ -92,6 +95,29 @@ input[type=password] {
     width: 120px;
     color: $branco;
     cursor: pointer;
+}
+
+.form-close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    color: $cinza-escuro;
+    cursor: pointer;
+    border: none;
+    font-size: 24px;
+    position: absolute;
+    top: 22px;
+    right: 16px;
+
+    transition: all 0.1s;
+
+    &:hover {
+        color: $preto-desbotado
+    }
+
 }
 
 input[type=file] {
