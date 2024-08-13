@@ -16,8 +16,6 @@ const App = () => {
       <Route exact path="/sem-autorizacao" element={<div>Sem autorizacao</div>} />
 
       {/* protected */}
-      <Route element={< RequireAuth />}>
-      </Route>
 
       <Route path="/" element={<PaginaPadrao />}>
           <Route path="/dashboard" element={<DashBoard />} />
