@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './Form.scss'
 import { IoClose } from "react-icons/io5";
 
@@ -17,6 +18,27 @@ const FormInputText = ({labelText, placeholder, onChange, value}) => {
         </div>
     )
 }
+
+const FormInputOption = ({labeltext, name, options, value, onChange }) => {
+    //console.log(options.map((option) => (option.encarregado_id)))
+    return (
+        <div className='form-input-option'>
+            <label htmlFor={name} className='form-label'>{labeltext}</label>
+            <select className='form-select-option' id={name} name={name} value={value} onChange={onChange}>
+                <option value="" disabled>Selecione um encarregado...</option>
+                {options.map((option) => (
+                    <option
+                    key={option.encarregado_id}
+                    value={option.encarregado_id}
+                    >
+                        {option.encarregado_nome}
+                    </option>
+                ))}
+            </select>
+        </div>
+    )
+}
+
 
 const FormInputFile = ({labelText, accept, onChange, placeholder, textoBotao}) => {
 
@@ -60,9 +82,9 @@ const FormInputPassword = ({placeholder, onChange, value}) => {
 
 const FormCloseButton = ({onClick}) => {
 
-    return(
+    return (
         <button className='form-close-button' onClick={onClick} type='button'><IoClose/></button>
     )
 }
 
-export {FormTitulo, FormCloseButton, FormInputText, FormInputFile, FormInputUsername, FormInputPassword};
+export {FormTitulo, FormCloseButton, FormInputText, FormInputOption, FormInputFile, FormInputUsername, FormInputPassword};

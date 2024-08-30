@@ -1,8 +1,12 @@
 .mainpage {
     display: flex;
+    width: 100vw;
     height: 100vh;
+    gap: 64px;
+
+    .content {
+        flex: 1;
+        overflow: auto;
+    }
 }
 
-.mainpage-content-section {
-    flex: 1; 
-}

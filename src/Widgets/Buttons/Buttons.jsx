@@ -1,24 +1,31 @@
 import './Buttons.scss'
 import React, { useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { IoChevronBack } from "react-icons/io5";
 
-const ButtonDefault = ({children, modo, onClick, type})  => {
+const ButtonDefault = ({children, modo, onClick, type, isDisabled = false, isSecondary = false})  => {
     return (
-        <button onClick={onClick} className={`button-default ${modo}`} type={type}>
+        <button onClick={onClick} className={`button-default ${modo} ${isDisabled ? 'disabled' : ''} ${isSecondary ? 'secondary' : ''}`} type={type} disabled={isDisabled}>
             {children}
         </button>
     )
 }
 
-const ButtonForm = ({children, modo, onClick, type})  => {
+const ButtonReturn = ({navigate}) => {
     return (
-        <button onClick={onClick} className={`button-form ${modo}`} type={type}>
+        <button onClick={navigate}  className='button-return'><IoChevronBack/></button>
+    )
+}
+
+const ButtonForm = ({children, modo, onClick, type, isDisabled = false})  => {
+    return (
+        <button onClick={onClick} className={`button-form ${modo} ${isDisabled ? 'disabled' : ''}`} type={type} disabled={isDisabled}>
             {children}
         </button>
     )
 }
 
-function ButtonSideBar({ icone, texto, link }) {
+const ButtonSideBar = ({ icone, texto, link }) => {
     const location = useLocation();
     const selectedRef = useRef(null);
 
@@ -33,4 +40,4 @@ function ButtonSideBar({ icone, texto, link }) {
     );
 }
 
-export {ButtonDefault, ButtonForm, ButtonSideBar};
+export {ButtonDefault, ButtonForm, ButtonSideBar, ButtonReturn};

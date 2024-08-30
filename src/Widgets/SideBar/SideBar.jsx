@@ -1,12 +1,13 @@
 import './SideBar.scss'
 
+import logo from '/imagens/logo.png'
+
 import { FaHome, FaTools, FaRegCalendarAlt, FaAngleRight, FaBell, FaUser } from "react-icons/fa";
 import { LuConstruction } from "react-icons/lu";
 import { FaHelmetSafety } from "react-icons/fa6";
 import { useRef, useState } from 'react';
 import { ButtonSideBar } from '../Buttons/Buttons.jsx'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 
 const SideBar = () => {
 
@@ -32,8 +33,8 @@ const SideBar = () => {
     return(
         <section className={`sidebar ${isActive ? 'active' : ''}`}>
             <div className='sidebar-top'>
-                <div className='sidebar-futura-logo'></div>
-                <button className={`sidebar-changesize-bt ${isActive ? 'active' : ''}`} onClick={changeIsActive}><FaAngleRight className='sidebar-arrow-icon' /></button>
+                <img className='sidebar-logo' src={logo}></img>
+               {/* <button className={`sidebar-changesize-bt ${isActive ? 'active' : ''}`} onClick={changeIsActive}><FaAngleRight className='sidebar-arrow-icon' /></button> */}
             </div>
             <div className='sidebar-linha'/>
 

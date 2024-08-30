@@ -14,8 +14,38 @@
 .form-input-text {
     display: flex;
     flex-direction: column;
-    margin-bottom: 32px;
     width: 360px;
+}
+
+.form-input-option {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+
+    .form-select-option {
+        border-color: transparent;
+        background-color: #ffffff;  
+        border-radius: 20px;
+        font-size: 16px;
+        height: 35px;
+        cursor:text;
+        outline: transparent;
+        left: 0;
+        margin-bottom: 16px;
+    }
+
+    select {
+
+        appearance: none;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:focus {
+            cursor: pointer;
+        }
+    }
 }
 
 .form-input-username {
@@ -60,6 +90,10 @@ input[type=password] {
     outline: transparent;
     left: 0;
     margin-bottom: 16px;
+}
+
+input[type=option] {
+
 }
 
 .form-input-file {

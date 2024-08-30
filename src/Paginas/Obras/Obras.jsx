@@ -1,11 +1,16 @@
 import './Obras.scss'
 import { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
-import api from "../../api/axios.jsx";
+import api from "../../Api/Axios.jsx";
 import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx'
 import { FaPlus } from "react-icons/fa";
-import {FormTitulo, FormInputText, FormInputFile, FormCloseButton} from "../../Widgets/Form/Form.jsx"
-import { useNavigate } from "react-router-dom";
+import { FormTitulo, FormInputText, FormInputOption, FormInputFile, FormCloseButton } from "../../Widgets/Form/Form.jsx"
+import Table from '../../Widgets/Tabelas/TabelaObras.jsx'
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import PropTypes from 'prop-types'; 
+import Header from '../../Widgets/Header/Header.jsx'
+
 
 const Obras = () => {
 
@@ -14,41 +19,88 @@ const Obras = () => {
 
     const [nomeArquivo, setNomeArquivo] = useState("Selecionar arquivo de obra");
     const [obras, setObras] = useState([]);
-    const [items, setItems] = useState([]);
-    const navigate = useNavigate();
+    const [itens, setItens] = useState([]);
+    const [obrasTabela, setObrasTabela] = useState([]);
 
-   //get obras
-    useEffect(() => {
-        const fecthObras = async () => {
-            try {
-                const response = await api.get(`${localStorage.getItem('empresa_id')}/jobs-info`)
-                setObras(response.data);
-            } catch (e) {
-                if(e.response) {
-                        console.log(e.response.data)
-                        console.log(e.response.status)
-                        console.log(e.response.headers)
-                }
+
+    const [encarregados, setEncarregados] = useState([]);
+    const [selectedEncarregadoId, setSelectedEncarregadoId] = useState('');
+
+
+
+    const [tab, setTab] = useState(0);
+
+    const handleChangeTab = (event, newTab) => {
+        setTab(newTab);
+
+        if(newTab === 0)
+            setObrasTabela(obras);
+    
+        else if(newTab === 1)
+            setObrasTabela(obras.filter(obra => obra.status === 'NAO_CONCLUIDO'));
+
+        else if(newTab === 2)
+            setObrasTabela(obras.filter(obra => obra.status === 'CONCLUIDO'));
+    };
+
+    //get encarregados
+    const fetchEncarregados = async () => {
+        try {
+            const response = await api.get('/encarregados');
+
+            setEncarregados(response.data);
+        } catch (e) {
+            if (e.response) {
+                console.log(e.response.data);
+                console.log(e.response.status);
+                console.log(e.response.headers);
             }
         }
+    }
 
+    useEffect(() => {
+        fetchEncarregados();
+    }, [])
+
+    //get obras
+    const fecthObras = async () => {
+        try {
+            const response = await api.get('/obras');
+
+            const obrasResponse = response.data;
+            setObras(obrasResponse);
+            setObrasTabela(obrasResponse);
+        } catch (e) {
+            if (e.response) {
+                console.log(e.response.data);
+                console.log(e.response.status);
+                console.log(e.response.headers);
+            }
+        }
+    }
+
+    useEffect(() => {
         fecthObras();
     }, [])
 
     //post obra
-    useEffect(() => {
+    const handleSubmit = async () => {
+        const obra = { nome: nomeObra, encarregado_id: selectedEncarregadoId, itens: itens, empresa_id: localStorage.getItem('empresa_id') }
 
-    }, [])
-    
-    const handleSubmit = () => {
-        const obra = { nome: nomeObra, encarregado_id: encarregado, items }
+        api.post('/register-obra', obra)
+            .then(function (response) {
+                fecthObras();
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
 
-        setNomeObra("")
-        setEncarregado("")
-        setNomeArquivo("")
-        setItems([])
+        setNomeObra("");
+        setEncarregado("");
+        setNomeArquivo("Selecionar arquivo de obra");
+        setItens([]);
+        setSelectedEncarregadoId('');
 
-        console.log("obra adicionada")
         console.log(obra)
         closeFormRegisterObra()
 
@@ -59,18 +111,19 @@ const Obras = () => {
 
         const file = e.target.files[0];
         const reader = new FileReader();
-        reader.readAsBinaryString(file);
+        reader.readAsArrayBuffer(file);
+
         reader.onload = (e) => {
-            const data = e.target.result;
-            const workbook = XLSX.read(data, { type: "binary" });
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: "array" });
             const sheetName = workbook.SheetNames[0];
             const sheet = workbook.Sheets[sheetName];
             const parsedData = XLSX.utils.sheet_to_json(sheet, { header: 1, blankrows: false });
 
             setNomeArquivo(file.name);
- 
-            //array de items a partir dos dados parseados
-            for (let i = 0; i < parsedData.length; i++) {
+
+            //array de itens a partir dos dados parseados
+            for (let i = 1; i < parsedData.length; i++) {
                 const row = parsedData[i];
                 const item = {
                     numero: row[0],
@@ -91,123 +144,79 @@ const Obras = () => {
                     protecao_valor: row[15],
                     protecao_valor_etapa: row[16]
                 };
-                items.push(item);
-            }        
+                itens.push(item);
+            }
         };
     };
 
     const showFormRegisterObra = () => {
         const form = document.getElementById('form-register-obra');
-        const conteudo_obras = document.getElementById('conteudo-obras')
+        const obras = document.getElementById('obras-conteudo');
         form.style.display = 'block';
-        conteudo_obras.classList.add('blurred');
+        obras.classList.add('blurred');
     }
 
     const closeFormRegisterObra = () => {
         const form = document.getElementById('form-register-obra');
-        const conteudo_obras = document.getElementById('conteudo-obras')
+        const obras = document.getElementById('obras-conteudo')
         form.style.display = 'none';
-        conteudo_obras.classList.remove('blurred');
+        obras.classList.remove('blurred');
     }
-    
+
     return (
-    <section className='obras'>
-        <div className='conteudo-obras' id='conteudo-obras'>
-            <h1 className='titulo-obras'>Obras</h1>
-            {obras.length === 0 ? (
-                <p>Nenhuma obra registrada</p>
-            ) : (
-                <div className='container-obras'>
-                    <table className='tabela-obras'>
-                        <thead className='tabela-obras-head'>
-                            <tr>
-                                <th>N°</th>
-                                <th>Nome</th>
-                                <th>Valor</th>
-                                <th>Encarregado</th>
-                                <th>Itens</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {obras.map((obra, index) => (
-                                <tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{obra.nome}</td>
-                                    <td>{obra.valor}</td>
-                                    <td>{obra.encarregado.nome}</td>
-                                    <td>{obra.itens}</td>
-                                    <td>{obra.status}</td>
-                                    <td>
-                                        <button>deletar</button>
-                                    </td>
-                                    <td>
-                                        <button>editar</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+        <section className='obras'>
+
+            <div className='obras-conteudo' id='obras-conteudo'>
+                <div className='tabela-header'>
+                    <h1 className='tabela-titulo'>Obras</h1>
+                    <Header BotaoAdicionar={showFormRegisterObra}/>
                 </div>
-            )}
 
-            <div className='container-bt-add-obra'>
-                <ButtonDefault onClick={showFormRegisterObra} modo={"redondo"}>
-                    <FaPlus />
-                </ButtonDefault>
+                <Tabs value={tab} onChange={handleChangeTab}>
+                    <Tab label='Todas' disableRipple />
+                    <Tab label='Não concluídas' disableRipple />
+                    <Tab label='Concluídas' disableRipple />
+                </Tabs>
+                
+                <Table obras={obrasTabela}/>
             </div>
-        </div>
 
-        <form className='form-register-obra' id='form-register-obra' onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-        }}>
-            <FormTitulo>Registrar nova obra</FormTitulo>
-            <FormCloseButton onClick={closeFormRegisterObra} />
-            <div className='form-input-area'>
-                <FormInputText
-                    labelText='Nome da obra'
-                    placeholder='Digite o nome da obra'
-                    value={nomeObra}
-                    onChange={(e) => setNomeObra(e.target.value)}
-                />
-                <FormInputText
-                    labelText='Encarregado'
-                    placeholder='Digite o nome do encarregado'
-                    value={encarregado}
-                    onChange={(e) => setEncarregado(e.target.value)}
-                />
-                <FormInputFile
-                    labelText='Arquivo da obra'
-                    accept='.xlsx, .xls'
-                    onChange={handleFileUpload}
-                    placeholder={nomeArquivo}
-                    textoBotao='Procurar'
-                />
-            </div>
-            <ButtonDefault>Registrar obra</ButtonDefault>
-        </form>
-    </section>
-)
+
+            <form className='form-register-obra' id='form-register-obra' onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+            }}>
+                <FormTitulo>Registrar nova obra</FormTitulo>
+                <FormCloseButton onClick={closeFormRegisterObra} />
+                <div className='form-input-area'>
+                    <FormInputText
+                        labelText='Nome da obra'
+                        placeholder='Digite o nome da obra'
+                        value={nomeObra}
+                        onChange={(e) => setNomeObra(e.target.value)}
+                    />
+
+                    <FormInputOption
+                        labeltext='Encarregado'
+                        name='encarregado'
+                        options={encarregados}
+                        value={selectedEncarregadoId}
+                        onChange={(e) => setSelectedEncarregadoId(e.target.value)}
+                    />
+
+                    <FormInputFile
+                        labelText='Arquivo da obra'
+                        accept='.xlsx, .xls'
+                        onChange={handleFileUpload}
+                        placeholder={nomeArquivo}
+                        textoBotao='Procurar'
+                    />
+                </div>
+                <ButtonDefault>Registrar obra</ButtonDefault>
+            </form>
+        </section>
+    )
 
 }
 
 export default Obras;
-
-{
-    /* <div className='container-table'>
-                {items.length > 0 && (
-                    <table className="table">
-                        <tbody>
-                            {items.map((row, index) => (
-                                <tr key={index}>
-                                    {Object.values(row).map((value, index) => (
-                                        <td key={index}>{value}</td>
-                                    ))}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-            </div> */
-}

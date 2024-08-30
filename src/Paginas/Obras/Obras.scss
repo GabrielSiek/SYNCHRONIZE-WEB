@@ -1,57 +1,7 @@
 @import '../../global.scss';
 
 .obras {
-  display: flex;
-  flex-direction: column;
-  margin-top: 32px;
-  margin-left: 64px;
-  position: relative;
-}
-
-.conteudo-obras {
-  transition: all 0.1s;
-}
-
-.titulo-obras {
-  font-size: 36px;
-  font-weight: 300;
-}
-
-.container-obras {
-  background-color: $branco;
-  width: fit-content;
-  overflow-x: auto; // Permite o scroll horizontal
-  padding: 16px;
-  border-radius: 30px;
-  margin-right: 64px;
-
-  box-shadow: 0px 4px 6px rgba(17, 17, 17, 0.1); 
-
-}
-
-.tabela-obras {
-  border-collapse: separate;
-  border-spacing: 64px 8px;
-  margin-left: -32px;
-}
-
-.tabela-obras th {
-  font-size: 18px;
-  font-weight: 500;
-  text-align: center;
-}
-
-.tabela-obras td {
-  font-size: 16px;
-  font-weight: 300;
-  text-align: center;
-}
-
-.container-bt-add-obra {
-  width: calc(100% - 64px);
-  display: flex;
-  justify-content: center;
-  margin-top: 32px;
+  @include tabela;
 }
 
 .form-register-obra {
@@ -59,7 +9,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
   background-color: $branco;
   border-radius: 30px;
   width: 360px;
@@ -72,29 +22,3 @@
   gap: 16px;
 }
 
-.container-obras::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.container-obras::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.container-obras::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-}
-
-.container-obras::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.blurred {
-  filter: blur(5px);
-  opacity: 30%;
-  user-select: none; /* Para navegadores modernos */
-  -webkit-user-select: none; /* Para Safari e Chrome */
-  -moz-user-select: none; /* Para Firefox */
-  -ms-user-select: none; /* Para Internet Explorer e Edge */
-}

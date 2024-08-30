@@ -1,11 +1,11 @@
 import './Login.scss'
 
 import { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation} from 'react-router-dom';
+import { useNavigate, useLocation} from 'react-router-dom';
 import { FormTitulo, FormInputUsername, FormInputPassword } from "../../Widgets/Form/Form.jsx";
 import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx';
-import useAuth from '../../hooks/useAuth.jsx';
-import axios from '../../api/axios';
+import useAuth from '../../Hooks/UseAuth.jsx';
+import axios from '../../Api/Axios.jsx';
 const LOGIN_URL = '/auth/login'
 
 const Login = () => {
@@ -13,7 +13,7 @@ const Login = () => {
 
     const navigate = useNavigate()
     const location = useLocation()
-    const from = location.state?.from?.pathname || "/"
+    const from = location.state?.from?.pathname || "/dashboard"
 
     const userRef = useRef()
     const errRef = useRef()
@@ -43,16 +43,12 @@ const Login = () => {
             )
 
             const accessToken = response?.data?.token
-            const empresa_id = response?.data?.empresa_id
 
-            localStorage.setItem('empresa_id', empresa_id)
             localStorage.setItem('token', accessToken)
-            console.log(localStorage.getItem('token'))
-            console.log(localStorage.getItem('empresa_id'))
 
             setAuth({ email, password, accessToken })
 
-            setEmail('')
+            setEmail('') 
             setPassword('')
             navigate(from, { replace: true})
         } catch (err) {

@@ -1,0 +1,21 @@
+.status-badge {
+    height: 22px;
+    padding: 4px 6px;
+    border-radius: 12px;
+    color: #fff;
+    top: 10px;
+    user-select: none;
+}
+  
+  .status-nao-concluido {
+    background-color: #fbe6e6; 
+    color: #d45853; 
+    //border: 2px solid #d9534f;
+  }
+  
+  .status-concluido {
+    background-color: #d4edda; 
+    color: #28a745;
+    //border: 2px solid #28a745; 
+  }
+  
