@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import './Funcionarios.scss'
-import api from '../../Api/Axios'
+import api from '../../Api/Axios';
 import Table from '../../Widgets/Tabelas/TabelaFuncionarios';
 import Header from '../../Widgets/Header/Header';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import './StatusBadge.scss';
 
-const StatusBadge = ({ status, tipo }) => {
+const StatusBadge = ({ status, tipo, size }) => {
   const getStatusClass = () => {
     switch (status) {
       case 'NAO_CONCLUIDO':
@@ -15,7 +15,7 @@ const StatusBadge = ({ status, tipo }) => {
 
   if(tipo === 'obra') {
     return (
-      <span className={`status-badge ${getStatusClass()}`}>
+      <span className={`status-badge ${getStatusClass()} ${size}`}>
         {status === 'NAO_CONCLUIDO' ? 'Não concluída' : 'Concluída'}
       </span>
     );
@@ -23,7 +23,7 @@ const StatusBadge = ({ status, tipo }) => {
 
   if(tipo === 'item') {
     return (
-      <span className={`status-badge ${getStatusClass()}`}>
+      <span className={`status-badge ${getStatusClass()} ${size}`}>
         {status === 'NAO_CONCLUIDO' ? 'Não conluído' : 'Concluído'}
       </span>
     );

@@ -4,13 +4,6 @@
 
     @include tabela;
 
-    .obra-encarregado {
-    }
-
-
-
-
-
     .obra-bt-salvar {
         margin: 16px 0;
         width: 160px;
@@ -33,3 +26,7 @@
 .obra-protecao {
     background-color: rgb(239, 255, 240);
 }
+
+.data-grid-row.obra-preparacao:hover {
+    background-color: #c5c5c5 !important; /* Cor personalizada ao passar o mouse */
+  }

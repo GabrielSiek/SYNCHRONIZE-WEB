@@ -3,9 +3,9 @@ import React, { useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { IoChevronBack } from "react-icons/io5";
 
-const ButtonDefault = ({children, modo, onClick, type, isDisabled = false, isSecondary = false})  => {
+const ButtonDefault = ({children, modo, onClick, type, isDisabled = false, isSecondary = false, isFullWidth = false})  => {
     return (
-        <button onClick={onClick} className={`button-default ${modo} ${isDisabled ? 'disabled' : ''} ${isSecondary ? 'secondary' : ''}`} type={type} disabled={isDisabled}>
+        <button onClick={onClick} className={`button-default ${modo} ${isDisabled ? 'disabled' : ''} ${isSecondary ? 'secondary' : ''} ${isFullWidth ? 'full-width' : ''}`} type={type} disabled={isDisabled}>
             {children}
         </button>
     )

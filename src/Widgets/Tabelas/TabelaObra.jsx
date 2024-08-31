@@ -2,6 +2,7 @@
     import { ptBR } from '@mui/x-data-grid/locales';
     import StatusBadge from '../Badges/StatusBadge';
     import { useCallback, useState } from 'react';
+    import './Tabela.scss'
 
     const columns = [
         {
@@ -300,7 +301,7 @@
     );
         
         return (
-            <div style={{ height: 500, width: '100%' }}>
+            <div className='data-grid-with-save-button'>
                 <DataGrid
                     localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
                     rows={itens}
@@ -308,6 +309,7 @@
                     processRowUpdate={HandleCellChange} 
                     onProcessRowUpdateError={(error) => console.log(error)}         
                     disableColumnFilter
+                    disableDensitySelector
                     slots={{
                         toolbar: GridToolbar,
                     }}

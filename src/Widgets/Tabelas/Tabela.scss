@@ -1,0 +1,9 @@
+@import '../../global.scss';
+
+.data-grid {
+    @include data-grid;
+}
+
+.data-grid-with-save-button {
+    @include data-grid-with-save-button;
+}

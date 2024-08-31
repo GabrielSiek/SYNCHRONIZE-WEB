@@ -1,10 +1,14 @@
 .status-badge {
-    height: 22px;
     padding: 4px 6px;
     border-radius: 12px;
     color: #fff;
-    top: 10px;
     user-select: none;
+
+    
+}
+
+.small {
+  font-size: 14px;
 }
   
   .status-nao-concluido {

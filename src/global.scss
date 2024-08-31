@@ -53,6 +53,10 @@ body {
             font-weight: 300;    
         }
 
+        .return {
+            font-size: 20px;
+        }
+
         .tabela-header-link {
             display: flex;
             align-items: center;
@@ -84,4 +88,12 @@ body {
         pointer-events: none;
       }
       
+}
+
+@mixin data-grid {
+    height: 80vh;
+}
+
+@mixin data-grid-with-save-button {
+    height: 70vh;
 }

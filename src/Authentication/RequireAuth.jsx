@@ -1,6 +1,6 @@
  import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import api from '../Api/Axios'
+import api from "../Api/Axios";
 
 const RequireAuth = () => {
     const navigate = useNavigate()

@@ -1,6 +1,6 @@
 import './Obra.scss';
 import { useEffect, useState, useCallback } from 'react';
-import api from "../../Api/Axios.jsx";
+import api from '../../Api/Axios.jsx';
 import { useParams } from 'react-router-dom';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -58,6 +58,8 @@ const Obra = () => {
                 status: 'CONCLUIDO'
             }));
         }
+
+        
 
         return newRow;
     }, [itensTabela]);
@@ -127,11 +129,11 @@ const Obra = () => {
             <div className='obra-conteudo' id='obra-conteudo'>
                 <div className='tabela-header'>
                     <div className='tabela-informacoes'>
-                        <ButtonReturn navigate={() => navigate(-1)}/>
+                        <ButtonReturn className='return' navigate={() => navigate(-1)}/>
                         <h1 className='tabela-titulo'>{obra.nome}</h1>
-                        <StatusBadge status={obra.status} tipo={'obra'}/>
-                        <ButtonDefault isSecondary={true} onClick={() => navigate(`/obra/${obra_id}/diario-de-obra`)}><PiBookBold/> Diário de obra</ButtonDefault>
+                        <StatusBadge status={obra.status} tipo={'obra'} size={'small'}/>
                         <a className='tabela-header-link' href={`/encarregado/${obra.encarregado_id}`}><FaHelmetSafety className='icon' />{obra.encarregado_nome}</a>
+                        <a className='tabela-header-link' href={`/obra/${obra_id}/diario-de-obra`}><PiBookBold/> Diário de obra</a>
                     </div>
                     <Header />
                 </div>
@@ -146,6 +148,10 @@ const Obra = () => {
 
                 <div className='obra-bt-salvar'>
                     <ButtonDefault isDisabled={isDisabled} onClick={handleSaveSubmit}>Salvar</ButtonDefault>
+
+                    <div>
+                        
+                    </div>
                 </div>
             </div>
         </section>

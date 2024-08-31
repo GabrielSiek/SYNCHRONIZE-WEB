@@ -2,6 +2,7 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { ptBR } from '@mui/x-data-grid/locales';
 import StatusBadge from '../Badges/StatusBadge';
 import { Link } from 'react-router-dom';
+import './Tabela.scss'
 
 const columns = [
 
@@ -159,12 +160,13 @@ const columns = [
 const Table = ({ itens }) => {
 
     return (
-        <div style={{ height: 500, width: '100%' }}>
+        <div className='data-grid'>
             <DataGrid
                 localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
                 rows={itens}
                 columns={columns}
                 disableColumnFilter
+                disableDensitySelector
                 slots={{
                     toolbar: GridToolbar,
                 }}
