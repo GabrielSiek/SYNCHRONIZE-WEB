@@ -12,6 +12,8 @@ import { FaHelmetSafety } from "react-icons/fa6";
 import { PiBookBold } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
 import StatusBadge from '../../Widgets/Badges/StatusBadge.jsx';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 const Obra = () => {
 
@@ -21,6 +23,7 @@ const Obra = () => {
     const [obra, setObra] = useState();
     const [updatedObra, setUpdatedObra] = useState();
     const [itensTabela, setItensTabela] = useState([]);
+    const [file, setFile] = useState();
 
     const [tab, setTab] = useState(0);
 
@@ -91,7 +94,6 @@ const Obra = () => {
 
     }
 
-
     //get obra
     const fetchObra = async () => {
         try {
@@ -115,6 +117,7 @@ const Obra = () => {
         fetchObra();
     }, [])
 
+
     if (!obra) {
         return (
             <div className='loading'>
@@ -129,7 +132,7 @@ const Obra = () => {
             <div className='obra-conteudo' id='obra-conteudo'>
                 <div className='tabela-header'>
                     <div className='tabela-informacoes'>
-                        <ButtonReturn className='return' navigate={() => navigate(-1)}/>
+                        <ButtonReturn navigate={() => navigate(-1)}/>
                         <h1 className='tabela-titulo'>{obra.nome}</h1>
                         <StatusBadge status={obra.status} tipo={'obra'} size={'small'}/>
                         <a className='tabela-header-link' href={`/encarregado/${obra.encarregado_id}`}><FaHelmetSafety className='icon' />{obra.encarregado_nome}</a>
@@ -146,13 +149,9 @@ const Obra = () => {
 
                     <Table itens={itensTabela} obra={obra.nome} status={obra.status} onCellChange={handleCellChange} />
 
-                <div className='obra-bt-salvar'>
-                    <ButtonDefault isDisabled={isDisabled} onClick={handleSaveSubmit}>Salvar</ButtonDefault>
-
-                    <div>
-                        
+                    <div  className='tabela-save-button'>
+                        <ButtonDefault isDisabled={isDisabled} onClick={handleSaveSubmit}>Salvar</ButtonDefault>
                     </div>
-                </div>
             </div>
         </section>
     );

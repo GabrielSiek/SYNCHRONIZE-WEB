@@ -3,12 +3,10 @@ import { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
 import api from "../../Api/Axios.jsx";
 import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx'
-import { FaPlus } from "react-icons/fa";
 import { FormTitulo, FormInputText, FormInputOption, FormInputFile, FormCloseButton } from "../../Widgets/Form/Form.jsx"
 import Table from '../../Widgets/Tabelas/TabelaObras.jsx'
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import PropTypes from 'prop-types'; 
 import Header from '../../Widgets/Header/Header.jsx'
 
 
@@ -168,7 +166,7 @@ const Obras = () => {
 
             <div className='obras-conteudo' id='obras-conteudo'>
                 <div className='tabela-header'>
-                    <h1 className='tabela-titulo'>Obras</h1>
+                        <h1 className='tabela-titulo'>Obras</h1>
                     <Header BotaoAdicionar={showFormRegisterObra}/>
                 </div>
 
@@ -219,4 +217,4 @@ const Obras = () => {
 
 }
 
-export default Obras;
+export default Obras;   

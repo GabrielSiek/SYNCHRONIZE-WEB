@@ -13,7 +13,7 @@ const ButtonDefault = ({children, modo, onClick, type, isDisabled = false, isSec
 
 const ButtonReturn = ({navigate}) => {
     return (
-        <button onClick={navigate}  className='button-return'><IoChevronBack/></button>
+        <button onClick={navigate}  className='button-return'><IoChevronBack className='return-icon'/></button>
     )
 }
 

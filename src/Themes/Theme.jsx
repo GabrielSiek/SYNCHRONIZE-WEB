@@ -2,11 +2,14 @@ import { createTheme } from '@mui/material/styles';
 
 const Theme = createTheme({
   palette: {
+    text: {
+      primary: "#111111"
+    },
     primary: {
       main: '#3E91F3',
     },
   },
-  typography: {
+  typography: { 
     fontFamily: 'Poppins',
     button: {
       textTransform: 'none', // Desabilita todas as letras maiúsculas nos botões
@@ -16,28 +19,29 @@ const Theme = createTheme({
     MuiTab: {
       styleOverrides: {
         root: {
-          textTransform: 'none', // Desabilita todas as letras maiúsculas nas tabs
+          textTransform: 'none', 
           fontFamily: 'Poppins',
           '&.Mui-selected': {
-            color: '#3E91F3', // Define a cor da tab selecionada
+            color: '#3E91F3',
           },
         },
       },
       defaultProps: {
-        disableRipple: true, // Desabilita o ripple nas tabs
+        disableRipple: true, 
       },
     },
 
     MuiDataGrid: {
         styleOverrides: {
           root: {
-            borderRadius: '12px', // Define o arredondamento das bordas
+            borderRadius: '12px', 
           },
           columnHeaders: {
-            borderRadius: '12px 12px 0 0', // Arredonda apenas o topo
+            borderRadius: '12px 12px 0 0', 
+            color: "#111111"
           },
           footerContainer: {
-            borderRadius: '0 0 12px 12px', // Arredonda apenas a parte inferior
+            borderRadius: '0 0 12px 12px', 
           },
         },
       },
