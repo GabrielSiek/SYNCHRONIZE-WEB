@@ -87,6 +87,31 @@ const columns = [
         )
     },
     {
+        field: 'desenvolvimento_area',
+        headerName: 'Desenvolvido(m²)',
+        width: 140,
+        align: 'left',
+        headerAlign: 'left',
+        type: 'number',
+        editable: true,
+        renderCell: (params) => (
+            <div>{`${params.value}m²`}</div>
+        )
+    },
+    {
+        field: 'desenvolvimento_porcentagem',
+        headerName: 'Desenvolvido(%)',
+        width: 130,
+        align: 'left',
+        headerAlign: 'left',
+        type: 'number',
+        editable: true,
+
+        renderCell: (params) => (
+            <div>{`${params.value}%`}</div>
+        )
+    },
+    {
         field: 'preparacao_tipo',
         headerName: 'Tipo',
         width: 120,
@@ -229,56 +254,22 @@ const columns = [
         )
     },
     {
-        field: 'desenvolvimento_area',
-        headerName: 'Desenvolvido(m²)',
-        width: 140,
-        align: 'left',
-        headerAlign: 'left',
-        type: 'number',
-        editable: true,
-        renderCell: (params) => (
-            <div>{`${params.value}m²`}</div>
-        )
-    },
-    {
-        field: 'desenvolvimento_porcentagem',
-        headerName: 'Desenvolvido(%)',
-        width: 130,
-        align: 'left',
-        headerAlign: 'left',
-        type: 'number',
-        editable: true,
-
-        renderCell: (params) => (
-            <div>{`${params.value}%`}</div>
-        )
-    },
-    {
         field: 'data_inicio',
         headerName: 'Data de início',
         width: 135,
         align: 'left',
-        renderCell: (params) => (
-            <div>{`${params.value}`}</div>
-        )
     },
     {
         field: 'data_ultima',
         headerName: 'Última alteração',
         width: 135,
         align: 'left',
-        renderCell: (params) => (
-            <div>{`${params.value}`}</div>
-        )
     },
     {
         field: 'data_final',
         headerName: 'Data final',
         width: 135,
         align: 'left',
-        renderCell: (params) => (
-            <div>{`${params.value}`}</div>
-        )
     },
     {
         field: 'status',
@@ -286,6 +277,12 @@ const columns = [
         width: 135,
         align: 'left',
         headerAlign: 'left',
+        ValueGetter: (params) => {
+            if(params.value !== null)
+                return new Date(params.value);
+
+            return null
+        },
         renderCell: (params) => (
             <StatusBadge status={params.value} tipo={'item'} />
         )
@@ -332,7 +329,7 @@ const Table = ({ itens, obra, status, onCellChange }) => {
         }, [onCellChange]);
 
     return (
-        <div className='data-grid-with-save-button'>
+        <div className='data-grid'>
             <DataGrid
                 localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
                 rows={itens}

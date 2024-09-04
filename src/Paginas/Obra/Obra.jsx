@@ -29,6 +29,28 @@ const Obra = () => {
 
     const [isDisabled, setIsDisabled] = useState(true);
 
+    const updateRow = (row) => {
+
+        const updateRow = {
+            preparacao_desenvolvimento_area: row.preparacao_desenvolvimento_area,
+            preparacao_desenvolvimento_porcentagem: row.preparacao_desenvolvimento_porcentagem,
+            protecao_desenvolvimento_area: row.protecao_desenvolvimento_area,
+            protecao_desenvolvimento_porcentagem: row.protecao_desenvolvimento_porcentagem,
+            desenvolvimento_area: row.desenvolvimento_area,
+            desenvolvimento_porcentagem: row.desenvolvimento_porcentagem,
+            status: row.status
+        }
+
+        api.put(`/item/${row.id}/update`, updateRow)
+        .then((response) => {
+            console.log(response.data);
+            console.log(updateRow);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
     const handleCellChange = useCallback((newRow, oldRow) => {
         const updatedItens = itensTabela.map(item => item.id === newRow.id ? newRow : item);
         setItensTabela(updatedItens);
@@ -67,27 +89,6 @@ const Obra = () => {
         return newRow;
     }, [itensTabela]);
 
-    const UpdateRow = (row) => {
-
-        const updateRow = {
-            preparacao_desenvolvimento_area: row.preparacao_desenvolvimento_area,
-            preparacao_desenvolvimento_porcentagem: row.preparacao_desenvolvimento_porcentagem,
-            protecao_desenvolvimento_area: row.protecao_desenvolvimento_area,
-            protecao_desenvolvimento_porcentagem: row.protecao_desenvolvimento_porcentagem,
-            desenvolvimento_area: row.desenvolvimento_area,
-            desenvolvimento_porcentagem: row.desenvolvimento_porcentagem,
-            status: row.status
-        }
-
-        api.put(`/item/${row.id}/update`, updateRow)
-        .then((response) => {
-            console.log(response.data);
-            console.log(updateRow);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
 
     const handleChangeTab = (event, newTab) => {
         setTab(newTab);
@@ -111,7 +112,8 @@ const Obra = () => {
             setObra(response.data);
             setUpdatedObra(response.data);
             setItensTabela(response.data.itens);
-        } catch (e) {
+            console.log(response.data.itens)
+ vb          } catch (e) {
             if (e.response) {
                 console.log(e.response.data);
                 console.log(e.response.status);
