@@ -254,6 +254,33 @@ const columns = [
         )
     },
     {
+        field: 'data_inicio',
+        headerName: 'Data de início',
+        width: 135,
+        align: 'left',
+        renderCell: (params) => (
+            <div>{`${params.value}`}</div>
+        )
+    },
+    {
+        field: 'data_ultima',
+        headerName: 'Última alteração',
+        width: 135,
+        align: 'left',
+        renderCell: (params) => (
+            <div>{`${params.value}`}</div>
+        )
+    },
+    {
+        field: 'data_final',
+        headerName: 'Data final',
+        width: 135,
+        align: 'left',
+        renderCell: (params) => (
+            <div>{`${params.value}`}</div>
+        )
+    },
+    {
         field: 'status',
         headerName: 'Status',
         width: 135,

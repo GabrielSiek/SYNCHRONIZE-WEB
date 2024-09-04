@@ -62,10 +62,32 @@ const Obra = () => {
             }));
         }
 
-        
+        updateRow(newRow);
 
         return newRow;
     }, [itensTabela]);
+
+    const UpdateRow = (row) => {
+
+        const updateRow = {
+            preparacao_desenvolvimento_area: row.preparacao_desenvolvimento_area,
+            preparacao_desenvolvimento_porcentagem: row.preparacao_desenvolvimento_porcentagem,
+            protecao_desenvolvimento_area: row.protecao_desenvolvimento_area,
+            protecao_desenvolvimento_porcentagem: row.protecao_desenvolvimento_porcentagem,
+            desenvolvimento_area: row.desenvolvimento_area,
+            desenvolvimento_porcentagem: row.desenvolvimento_porcentagem,
+            status: row.status
+        }
+
+        api.put(`/item/${row.id}/update`, updateRow)
+        .then((response) => {
+            console.log(response.data);
+            console.log(updateRow);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
 
     const handleChangeTab = (event, newTab) => {
         setTab(newTab);
@@ -80,19 +102,6 @@ const Obra = () => {
             setItensTabela(obra.itens.filter(item => item.status === 'CONCLUIDO'));
 
     };
-
-    const handleSaveSubmit = () => {
-
-        api.put(`/obra/${obra_id}/update`, updatedObra)
-            .then((response) => {
-                console.log(response.data);
-                console.log(updatedObra);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-
-    }
 
     //get obra
     const fetchObra = async () => {
@@ -148,10 +157,6 @@ const Obra = () => {
                 </Tabs>
 
                     <Table itens={itensTabela} obra={obra.nome} status={obra.status} onCellChange={handleCellChange} />
-
-                    <div  className='tabela-save-button'>
-                        <ButtonDefault isDisabled={isDisabled} onClick={handleSaveSubmit}>Salvar</ButtonDefault>
-                    </div>
             </div>
         </section>
     );
