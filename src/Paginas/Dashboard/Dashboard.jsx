@@ -1,10 +1,10 @@
+import { TextField } from '@mui/material';
 import './Dashboard.scss'
     
 const Dashboard = () => {
 
     return (
         <section className='dashboard'>
-            dashboard
         </section>
     )
 }

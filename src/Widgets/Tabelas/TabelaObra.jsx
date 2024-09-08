@@ -258,18 +258,42 @@ const columns = [
         headerName: 'Data de início',
         width: 135,
         align: 'left',
+        type: 'date',
+        valueGetter:(params) => {
+            if(!params) return null;
+
+            const [year, month, day] = params.split('-');
+
+            return  new Date(year, month - 1, day);
+        }
     },
     {
         field: 'data_ultima',
         headerName: 'Última alteração',
         width: 135,
         align: 'left',
+        type: 'date',
+        valueGetter:(params) => {
+            if(!params) return null;
+
+            const [year, month, day] = params.split('-');
+
+            return  new Date(year, month - 1, day);
+        }
     },
     {
         field: 'data_final',
         headerName: 'Data final',
         width: 135,
         align: 'left',
+        type: 'date',
+        valueGetter:(params) => {
+            if(!params) return null;
+
+            const [year, month, day] = params.split('-');
+
+            return  new Date(year, month - 1, day);
+        }
     },
     {
         field: 'status',
@@ -277,12 +301,6 @@ const columns = [
         width: 135,
         align: 'left',
         headerAlign: 'left',
-        ValueGetter: (params) => {
-            if(params.value !== null)
-                return new Date(params.value);
-
-            return null
-        },
         renderCell: (params) => (
             <StatusBadge status={params.value} tipo={'item'} />
         )
@@ -338,6 +356,7 @@ const Table = ({ itens, obra, status, onCellChange }) => {
                 onProcessRowUpdateError={(error) => console.log(error)}
                 disableColumnFilter
                 disableDensitySelector
+            
                 slots={{
                     toolbar: GridToolbar,
                 }}
@@ -355,6 +374,9 @@ const Table = ({ itens, obra, status, onCellChange }) => {
                     pagination: {
                         paginationModel: { page: 0, pageSize: 10 },
                     },
+                    sorting: {
+                        sortModel: [{field: 'numero', sort: 'asc'}]
+                    }
                 }}
                 pageSizeOptions={[5, 10, 25, 50, 100]}
                 checkboxSelection
