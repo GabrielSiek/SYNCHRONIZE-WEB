@@ -1,6 +1,5 @@
 import "./Obra.scss";
 import { useEffect, useState, useCallback } from "react";
-import api from "../../Api/axios.jsx";
 import { useParams } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -12,6 +11,7 @@ import { FaHelmetSafety } from "react-icons/fa6";
 import { PiBookBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import StatusBadge from "../../Widgets/Badges/StatusBadge.jsx";
+import api from "../../Api/axios.jsx";
 
 const Obra = () => {
   const navigate = useNavigate();

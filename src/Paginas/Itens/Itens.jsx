@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import './Itens.scss'
-import api from '../../Api/axios';
 import Header from '../../Widgets/Header/Header';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Table from '../../Widgets/Tabelas/TabelaItens';
+import api from '../../Api/axios';
 
 
 const Itens =  () => {
