@@ -1,87 +1,106 @@
-import './Login.scss'
+  import "./Login.scss";
 
-import { useRef, useState, useEffect } from 'react';
-import { useNavigate, useLocation} from 'react-router-dom';
-import { FormTitulo, FormInputUsername, FormInputPassword } from "../../Widgets/Form/Form.jsx";
-import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx';
-import useAuth from '../../Hooks/UseAuth.jsx';
-import api from '../../Api/axios';
-const LOGIN_URL = '/auth/login'
+  import { useRef, useState, useEffect } from "react";
+  import { useNavigate, useLocation } from "react-router-dom";
+  import useAuth from "../../Hooks/UseAuth.jsx";
+  import api from "../../Api/axios";
+  const LOGIN_URL = "/auth/login";
+  import { Box, Button, TextField } from "@mui/material";
 
-const Login = () => {
-    const { setAuth } = useAuth()
+  const Login = () => {
+    const { setAuth } = useAuth();
 
-    const navigate = useNavigate()
-    const location = useLocation()
-    const from = location.state?.from?.pathname || "/dashboard"
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/dashboard";
 
-    const userRef = useRef()
-    const errRef = useRef()
-    
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [errMsg, setErrMsg] = useState('')
+    const userRef = useRef();
+    const errRef = useRef();
 
-    useEffect(() => {
-        userRef.current.focus()
-    }, [])
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errMsg, setErrMsg] = useState("");
 
     useEffect(() => {
-        setErrMsg('')
-    }, [email, password])
+      userRef.current.focus();
+    }, []);
+
+    useEffect(() => {
+      setErrMsg("");
+    }, [email, password]);
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+      e.preventDefault();
 
-        try {
-            const response = await api.post(LOGIN_URL,
-                JSON.stringify({ email, password }),
-                {
-                    headers: { 'Content-Type': 'application/json' },
-                    withCredentials: true
-                }
-            )
+      try {
+        const response = await api.post(
+          LOGIN_URL,
+          JSON.stringify({ email, password }),
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
 
-            const accessToken = response?.data?.token
+        const accessToken = response?.data?.token;
 
-            localStorage.setItem('token', accessToken)
+        localStorage.setItem("token", accessToken);
 
-            setAuth({ email, password, accessToken })
+        setAuth({ email, password, accessToken });
 
-            setEmail('') 
-            setPassword('')
-            navigate(from, { replace: true})
-        } catch (err) {
-            if (!err?.response)
-                setErrMsg("Sem resposta do servidor")
-            else if (err.response?.status === 400)
-                setErrMsg("Usuário ou senha não informados")
-            else if (err.response?.status === 403)
-                setErrMsg("Sem autorização")
-            else
-                setErrMsg('Falha ao fazer login')
+        setEmail("");
+        setPassword("");
+        navigate(from, { replace: true });
+      } catch (err) {
+        if (!err?.response) setErrMsg("Sem resposta do servidor");
+        else if (err.response?.status === 400)
+          setErrMsg("Usuário ou senha não informados");
+        else if (err.response?.status === 403) setErrMsg("Sem autorização");
+        else setErrMsg("Falha ao fazer login");
 
-            errRef.current.focus()
-        }
-    }
+        errRef.current.focus();
+      }
+    };
 
     return (
-                <div className='login'>
-                    <form className='form-login' onSubmit={handleSubmit}>
-                        <FormTitulo>Login</FormTitulo>
+      <Box component="form" className="form-login" onSubmit={handleSubmit}>
+        
+        <h3 className="form-titulo">Login</h3>
 
-                        <FormInputUsername placeholder={'Digite o nome de usuário'} userRef={userRef} onChange={(e) => setEmail(e.target.value)} value={email} />
+        <div className="form-input-area">
+          <TextField
+            variant="outlined"
+            label="Email"
+            required
+            value={email}
+            size="small"
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-                        <FormInputPassword placeholder={'Digite a senha'} onChange={(e) => setPassword(e.target.value)} value={password} />
+          <TextField
+            variant="outlined"
+            label="Senha"
+            required
+            type="password"
+            value={password}
+            size="small"
+            onChange={(e) => setPassword(e.target.value)}
+            inputRef={userRef}
+          />
 
-                        <ButtonDefault>Login</ButtonDefault>
-                    </form>
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
-                            {errMsg}
-                        </p>
-                </div>
-            
-    )
-}
+          <Button variant="contained" disableRipple type="submit">
+            Login
+          </Button>
+          <p
+            ref={errRef}
+            className={errMsg ? "errmsg" : "offscreen"}
+            aria-live="assertive"
+          >
+            {errMsg}
+          </p>
+        </div>
+      </Box>
+    );
+  };
 
-export default Login;
+  export default Login;

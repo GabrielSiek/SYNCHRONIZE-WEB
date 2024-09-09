@@ -1,112 +1,165 @@
 //cores
-$azul: #3E91F3;
-$branco: #FBFBFF;
+$azul: #3e91f3;
+$branco: #fbfbff;
 $branco-bg: #ebebee;
-$cinza: #DBD8D8;
-$cinza-escuro: #A3A3A3;
+$cinza: #dbd8d8;
+$cinza-escuro: #a3a3a3;
 $preto-desbotado: #757575;
 $preto: #111111;
-$vermelho: #FB4848;
+$vermelho: #fb4848;
 
 //cores-hover
 $azul-hover: #4ea1ff;
 $azul-hover-bg: #e3e7ed;
 
 body {
-    background-color: $branco-bg;
-    margin: 0;
-    padding: 0;
+  background-color: $branco-bg;
+  margin: 0;
+  padding: 0;
 }
 
 * {
-    font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .app {
-    height: 100vh;
-    width: 100vw;
+  height: 100vh;
+  width: 100vw;
 }
 
 .body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 @mixin tabela {
+  margin-right: 64px;
+  transition: all 0.1s;
 
-    margin-right: 64px;
-    transition: all 0.1s;
+  .tabela-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 
-  
-
-    .tabela-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-
-        .tabela-titulo {
-            font-size: 36px;
-            font-weight: 300;
-            color: $preto;
-        }
-        
-        .tabela-informacoes {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-
-            .return-icon {
-                font-size: 18px;
-                margin-right: -16px;
-            }            
-        }
-
-        .tabela-header-link {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 14px;
-            color: $cinza-escuro;
-            text-decoration: none;
-
-            transition: all 0.2s;
-
-            .icon {
-                font-size: 16px;
-            }
-
-            &:hover {
-                color: $preto;
-            }
-        }
+    .tabela-titulo {
+      font-size: 36px;
+      font-weight: 300;
+      color: $preto;
     }
 
-    
-    .tabela-save-button {
-        margin-top: 16px;
+    .tabela-informacoes {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      .return-icon {
+        font-size: 18px;
+        margin-right: -16px;
+      }
     }
 
-    .blurred {
+    .tabela-header-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 14px;
+      color: $cinza-escuro;
+      text-decoration: none;
 
-        filter: blur(5px);
-        opacity: 20%;
-        user-select: none;
-        /* Para navegadores modernos */
-        -webkit-user-select: none;
-        /* Para Safari e Chrome */
-        -moz-user-select: none;
-        /* Para Firefox */
-        -ms-user-select: none;
-        /* Para Internet Explorer e Edge */
-        pointer-events: none;
+      transition: all 0.2s;
+
+      .icon {
+        font-size: 16px;
+      }
+
+      &:hover {
+        color: $preto;
+      }
     }
+  }
 
+  .tabela-save-button {
+    margin-top: 16px;
+  }
+
+  .blurred {
+    filter: blur(5px);
+    opacity: 20%;
+    user-select: none;
+    /* Para navegadores modernos */
+    -webkit-user-select: none;
+    /* Para Safari e Chrome */
+    -moz-user-select: none;
+    /* Para Firefox */
+    -ms-user-select: none;
+    /* Para Internet Explorer e Edge */
+    pointer-events: none;
+  }
 }
 
 @mixin data-grid {
-    height: 75vh;
+  height: 75vh;
 }
 
-@mixin data-grid-with-save-button {
-    height: 65vh;
+@mixin form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $branco;
+  border-radius: 12px;
+  width: 360px;
+  padding: 32px 16px;
+
+  .form-titulo {
+    display: flex;
+    width: fit-content;
+    width: 100%;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 300;
+  }
+
+  .form-close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    color: $cinza-escuro;
+    cursor: pointer;
+    border: none;
+    font-size: 24px;
+    position: absolute;
+    top: 8px;
+    right: 2px;
+
+    transition: all 0.1s;
+
+    &:hover {
+      color: $preto-desbotado;
+    }
+  }
+
+  .form-input-area {
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+    gap: 32px;
+
+    .input-file {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .input-file span {
+      flex: 1;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }

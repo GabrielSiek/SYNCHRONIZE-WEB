@@ -2,32 +2,24 @@ import "./Obras.scss";
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 import api from "../../Api/axios";
-import { ButtonDefault } from "../../Widgets/Buttons/Buttons.jsx";
-import {
-  FormTitulo,
-  FormInputText,
-  FormInputOption,
-  FormInputFile,
-  FormCloseButton,
-} from "../../Widgets/Form/Form.jsx";
+import { FormCloseButton } from "../../Widgets/Buttons/Buttons.jsx";
 import Table from "../../Widgets/Tabelas/TabelaObras.jsx";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Header from "../../Widgets/Header/Header.jsx";
 import TextField from "@mui/material/TextField";
-import { Box, Button, Input } from "@mui/material";
+import { Box, Button, Input, MenuItem } from "@mui/material";
 
 const Obras = () => {
   const [nomeObra, setNomeObra] = useState("");
-  const [encarregado, setEncarregado] = useState("");
+  const [selectedEncarregadoId, setSelectedEncarregadoId] = useState("");
 
-  const [nomeArquivo, setNomeArquivo] = useState("Selecionar arquivo de obra");
+  const [encarregados, setEncarregados] = useState([]);
+
+  const [nomeArquivo, setNomeArquivo] = useState("Selecione o arquivo");
   const [obras, setObras] = useState([]);
   const [itens, setItens] = useState([]);
   const [obrasTabela, setObrasTabela] = useState([]);
-
-  const [encarregados, setEncarregados] = useState([]);
-  const [selectedEncarregadoId, setSelectedEncarregadoId] = useState("");
 
   const [tab, setTab] = useState(0);
 
@@ -87,7 +79,6 @@ const Obras = () => {
       nome: nomeObra,
       encarregado_id: selectedEncarregadoId,
       itens: itens,
-      empresa_id: localStorage.getItem("empresa_id"),
     };
 
     api
@@ -99,11 +90,10 @@ const Obras = () => {
         console.log(error);
       });
 
-    setNomeObra("");
-    setEncarregado("");
-    setNomeArquivo("Selecionar arquivo de obra");
     setItens([]);
+    setNomeObra("");
     setSelectedEncarregadoId("");
+    setNomeArquivo("Selecione o arquivo");
 
     console.log(obra);
     closeFormRegisterObra();
@@ -111,6 +101,7 @@ const Obras = () => {
 
   const handleFileUpload = (e) => {
     e.preventDefault();
+    setItens([]);
 
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -153,6 +144,8 @@ const Obras = () => {
         itens.push(item);
       }
     };
+
+    console.log(itens);
   };
 
   const showFormRegisterObra = () => {
@@ -163,6 +156,10 @@ const Obras = () => {
   };
 
   const closeFormRegisterObra = () => {
+    setItens([]);
+    setNomeObra("");
+    setSelectedEncarregadoId("");
+    setNomeArquivo("Selecione o arquivo");
     const form = document.getElementById("form-register-obra");
     const obras = document.getElementById("obras-conteudo");
     form.style.display = "none";
@@ -188,16 +185,18 @@ const Obras = () => {
 
       <Box
         component="form"
+        onSubmit={handleSubmit}
         className="form-register-obra"
         id="form-register-obra"
       >
-        <FormTitulo>Registrar nova obra</FormTitulo>
+        <h3 className="form-titulo">Registrar nova obra</h3>
         <FormCloseButton onClick={closeFormRegisterObra} />
         <div className="form-input-area">
           <TextField
             variant="outlined"
             label="Nome da obra"
             required
+            value={nomeObra}
             size="small"
             onChange={(e) => setNomeObra(e.target.value)}
           />
@@ -205,32 +204,43 @@ const Obras = () => {
           <TextField
             variant="outlined"
             select
-            label="Selecione o necarregado"
+            label="Selecione o encarregado"
             size="small"
+            value={selectedEncarregadoId}
+            onChange={(e) => setSelectedEncarregadoId(e.target.value)}
             required
+            fullWidth
           >
-            {encarregados.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
+            {encarregados.map((encarregado) => (
+              <MenuItem
+                key={encarregado.encarregado_id}
+                value={encarregado.encarregado_id}
+              >
+                {encarregado.encarregado_nome}
+              </MenuItem>
             ))}
           </TextField>
 
-          <Button
-            variant="outlined"
-            color="secondary"
-            component="label"
-            disableRipple
-          >
-            Selecione o arquivo
-            <Input
-              type="file"
-              inputProps={{ accept: ".csv, .xlsx, .xls" }}
-              style={{ display: "none" }}
-            />
-          </Button>
+          <div className="input-file">
+            <Button
+              variant="outlined"
+              color="secondary"
+              component="label"
+              disableRipple
+            >
+              Selecione o arquivo
+              <Input
+                type="file"
+                inputProps={{ accept: ".csv, .xlsx, .xls" }}
+                style={{ display: "none" }}
+                onChange={handleFileUpload}
+              />
+            </Button>
 
-          <Button variant="contained" disableRipple className="form-sub">
+            <span>{nomeArquivo}</span>
+          </div>
+
+          <Button variant="contained" disableRipple type="submit">
             Registrar obra
           </Button>
         </div>

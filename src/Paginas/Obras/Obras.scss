@@ -1,4 +1,4 @@
-@import '../../global.scss';
+@import "../../global.scss";
 
 .obras {
   @include tabela;
@@ -6,21 +6,7 @@
 
 .form-register-obra {
   display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: $branco;
-  border-radius: 12px;
-  width: 360px;
-  padding: 32px 16px;
+  @include form;
 }
 
-
-.form-input-area {
-  display: flex;
-  flex-direction: column;
-  padding-top: 16px;
-  gap: 32px;
-}
 
