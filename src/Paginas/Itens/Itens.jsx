@@ -4,7 +4,7 @@ import Header from '../../Widgets/Header/Header';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Table from '../../Widgets/Tabelas/TabelaItens';
-import api from '../../Api/axios';
+import api from '../../Api/axios.jsx';
 
 
 const Itens =  () => {

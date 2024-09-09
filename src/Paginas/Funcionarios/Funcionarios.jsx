@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './Funcionarios.scss'
 import Table from '../../Widgets/Tabelas/TabelaFuncionarios';
 import Header from '../../Widgets/Header/Header';
-import api from '../../Api/axios';
+import api from '../../Api/axios.jsx';
 
 const Funcionarios = () => {
 
