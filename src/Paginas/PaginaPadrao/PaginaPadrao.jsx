@@ -1,19 +1,17 @@
-import './PaginaPadrao.scss'
-import Header from '../../Widgets/Header/Header'
-import SideBar from '../../Widgets/SideBar/SideBar'
-import { Outlet } from 'react-router-dom'
-
+import "./PaginaPadrao.scss";
+import SideBar from "../../Widgets/SideBar/SideBar";
+import { Outlet } from "react-router-dom";
 
 const PaginaPadrao = () => {
-    return (
-        <div className='mainpage'>
-            <SideBar/>
+  return (
+    <div className="mainpage">
+      <SideBar />
 
-                <div className='content'>
-                    <Outlet/>
-                </div>
-        </div>
-    )
-}
+      <div className="content">
+        <Outlet />
+      </div>
+    </div>
+  );
+};
 
 export default PaginaPadrao;

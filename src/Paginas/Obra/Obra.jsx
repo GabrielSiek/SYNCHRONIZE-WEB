@@ -1,6 +1,6 @@
 import "./Obra.scss";
 import { useEffect, useState, useCallback } from "react";
-import api from "../../Api/axios";
+import api from "../../Api/axios.jsx";
 import { useParams } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -70,13 +70,6 @@ const Obra = () => {
     postRow(row, updateRow);
 
     console.log(row);
-    //newRow = getRow(row);
-
-    //const updatedItens = itensTabela.map(item =>
-    //    item.id === newRow.id ? {...item, newRow} : item
-    //);
-
-    //setItensTabela(updatedItens);
   };
 
   const handleCellChange = useCallback(
