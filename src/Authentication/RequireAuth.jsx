@@ -1,6 +1,6 @@
- import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import api from "../Api/Axios";
+import api from "../Api/axios"
 
 const RequireAuth = () => {
     const navigate = useNavigate()
@@ -9,8 +9,6 @@ const RequireAuth = () => {
         const verifyToken = async () => {
             try {
                 const response = await api.get('/auth/verify-token')
-                
-               
             } catch (e) {
                 if(e.response.status === 403)
                     navigate('/login');

@@ -1,7 +1,7 @@
 import "./Obras.scss";
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
-import api from "../../Api/Axios.jsx";
+import api from "../../Api/axios";
 import { ButtonDefault } from "../../Widgets/Buttons/Buttons.jsx";
 import {
   FormTitulo,

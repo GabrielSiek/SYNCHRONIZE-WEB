@@ -1,6 +1,6 @@
 import "./Obra.scss";
 import { useEffect, useState, useCallback } from "react";
-import api from "../../Api/Axios.jsx";
+import api from "../../Api/axios";
 import { useParams } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";

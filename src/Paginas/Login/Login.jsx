@@ -5,7 +5,7 @@ import { useNavigate, useLocation} from 'react-router-dom';
 import { FormTitulo, FormInputUsername, FormInputPassword } from "../../Widgets/Form/Form.jsx";
 import { ButtonDefault } from '../../Widgets/Buttons/Buttons.jsx';
 import useAuth from '../../Hooks/UseAuth.jsx';
-import axios from '../../Api/Axios.jsx';
+import api from '../../Api/axios';
 const LOGIN_URL = '/auth/login'
 
 const Login = () => {
@@ -34,7 +34,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(LOGIN_URL,
+            const response = await api.post(LOGIN_URL,
                 JSON.stringify({ email, password }),
                 {
                     headers: { 'Content-Type': 'application/json' },
