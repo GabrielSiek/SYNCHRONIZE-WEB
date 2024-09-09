@@ -1,7 +1,7 @@
 import "./Obras.scss";
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
-import api from "../../Api/axios";
+import api from "../../Api/axios.jsx";
 import { FormCloseButton } from "../../Widgets/Buttons/Buttons.jsx";
 import Table from "../../Widgets/Tabelas/TabelaObras.jsx";
 import Tabs from "@mui/material/Tabs";
