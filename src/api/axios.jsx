@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://synchronize-api.onrender.com', 
+    //baseURL: 'https://synchronize-api.onrender.com', 
+    baseURL: 'http://localhost:8080', 
+
 });
 
 api.interceptors.request.use(
