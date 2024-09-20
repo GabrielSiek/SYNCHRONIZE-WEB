@@ -110,13 +110,65 @@ body {
   border-radius: 12px;
   width: 360px;
   padding: 32px 16px;
+
+  
+  .form-titulo {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 300;
+  }
+
+  .form-close-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    background-color: transparent;
+    color: $cinza-escuro;
+    cursor: pointer;
+    border: none;
+    font-size: 24px;
+    position: absolute;
+    top: 8px;
+    right: 2px;
+
+    transition: all 0.1s;
+
+    &:hover {
+      color: $preto-desbotado;
+    }
+  }
+
+  .form-input-area {
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+    gap: 32px;
+
+    .input-file {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .input-file span {
+      flex: 1;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
 }
 
 @mixin form {
  
   .form-titulo {
     display: flex;
-    width: fit-content;
     width: 100%;
     justify-content: center;
     font-size: 22px;

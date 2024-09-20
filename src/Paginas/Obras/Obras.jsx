@@ -33,7 +33,6 @@ const Obras = () => {
       setObrasTabela(obras.filter((obra) => obra.status === "CONCLUIDO"));
   };
 
-  //get encarregados
   const fetchEncarregados = async () => {
     try {
       const response = await api.get("/encarregados");
@@ -52,7 +51,6 @@ const Obras = () => {
     fetchEncarregados();
   }, []);
 
-  //get obras
   const fecthObras = async () => {
     try {
       const response = await api.get("/obras");
@@ -73,8 +71,9 @@ const Obras = () => {
     fecthObras();
   }, []);
 
-  //post obra
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     const obra = {
       nome: nomeObra,
       encarregado_id: selectedEncarregadoId,
@@ -96,6 +95,7 @@ const Obras = () => {
     setNomeArquivo("Selecione o arquivo");
 
     console.log(obra);
+    console.log('obra adicionada')
     closeFormRegisterObra();
   };
 
@@ -119,7 +119,6 @@ const Obras = () => {
 
       setNomeArquivo(file.name);
 
-      //array de itens a partir dos dados parseados
       for (let i = 1; i < parsedData.length; i++) {
         const row = parsedData[i];
         const item = {
